@@ -1,0 +1,2 @@
+run:
+	coffee server.coffee
