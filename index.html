@@ -36,53 +36,59 @@
     </nav>
 
     <div class="container" style="margin-top:50px">
-      <h1>Support Pro-Science Product Labelling</h1>
+      <h1>Support Evidence-Based Product Labelling</h1>
+        <form>
+
         <div class="row">
           <div class="col-sm-6">
-            <form>
-              <label for="company">Select companies to email:</label>
-              <div class="form-group" style="max-height:200px;overflow:auto">
-              <!-- ADD SELECT ALL -->
+            <h3>Email Message:</h3>
+            
+              <label for="company">Select companies to email</label>
+              <!--<button type="button" class="btn btn-default" id='check_all'>Select all</button>-->
+              <div class="form-group" style="max-height:120px;overflow:auto"> 
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">1</label>
+                  <label><input type="checkbox" id="check_all">Select all</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">2</label>
+                  <label><input type="checkbox" name="company" value="">1</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">3</label>
+                  <label><input type="checkbox" name="company" value="">2</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">4</label>
+                  <label><input type="checkbox" name="company" value="">3</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">5</label>
+                  <label><input type="checkbox" name="company" value="">4</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">6</label>
+                  <label><input type="checkbox" name="company" value="">5</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">7</label>
+                  <label><input type="checkbox" name="company" value="">6</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">8</label>
+                  <label><input type="checkbox" name="company" value="">7</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">9</label>
+                  <label><input type="checkbox" name="company" value="">8</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">10</label>
+                  <label><input type="checkbox" name="company" value="">9</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="company" value="">10</label>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="subject">Subject:</label>
-                <input type="text" class="form-control" id="subject" value="Support science-based product labelling">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" value="Support evidence-based product labelling">
               </div>
 
               <div class="form-group">
-                <label for="email">Editable text:</label>
-                <textarea class="form-control" rows="15" id="text">
+                <label for="email">Editable text</label>
+                <textarea class="form-control" rows="14" id="text">
 I have been a long-time buyer of {company}. However, a few months ago, {company} changed their packaging to include a sticker from the "Non-GMO Project". This was deeply disturbing to me, and I have discontinued purchase of {company's} products as a result.
 
 To date, no study has ever shown negative effects from the consumption of GMOs. Indeed, perpetuating the myth that GMOs are inherently less healthy than non-GMOs is damaging to the continued research efforts to end hunger and nutrient-deficiency around the world.
@@ -90,17 +96,127 @@ To date, no study has ever shown negative effects from the consumption of GMOs. 
 I urge {company} to remove the "Non-GMO Project" sticker from their products. I really enjoy {company}, but cannot, in good conscience, purchase goods or recommend products from companies that prop up fraudulent claims that impede scientific progress.
                 </textarea>
               </div>
-
-              <div class="form-group">
-                <label for="name">Your Name:</label>
-                <input type="text" class="form-control" id="name">
-              </div>
-
-            </form>
           </div>
-          <div class="col-sm-6">Here is an email sending thing</div>
+
+          <div class="col-sm-6">
+            <h3>Your Contact Information:</h3>
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control" id="fname">
+            </div>
+
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" id="lname">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email">
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address">
+            </div>
+
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city">
+            </div>
+
+            <div class="form-group">
+              <label for="state">State</label>
+              <select class="form-control" id="state">
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>District of Columbia</option>
+                <option>Delaware</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Iowa</option>
+                <option>Indiana</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="zip">Zip Code</label>
+              <input type="text" class="form-control" id="zip">
+            </div>
+
+            <input type="submit" class="btn btn-success">
+
+          </div>
         </div>
+
+        </form>
     </div>
+
+    <script>
+      $('#check_all').click(function() {
+          $('input[name=company]').prop('checked', true);
+      });
+
+      //".checkbox" change 
+      $('input[name=company]').change(function(){ 
+          //uncheck "select all", if one of the listed checkbox item is unchecked
+          if(false == $(this).prop("checked")){ //if this item is unchecked
+              $("#check_all").prop('checked', false); //change "select all" checked status to false
+          }
+          //check "select all" if all checkbox items are checked
+          if ($('input[name=company]:checked').length == $('input[name=company]').length ){
+              $("#check_all").prop('checked', true);
+          }
+      });
+
+      console.log("hello")
+    </script>
+
   </body>
+
+
 
 </html>
