@@ -37,7 +37,7 @@
 
     <div class="container" style="margin-top:50px">
       <h1>Support Evidence-Based Product Labelling</h1>
-        <form>
+        <form action='/send'>
 
         <div class="row">
           <div class="col-sm-6">
@@ -203,7 +203,7 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products. I 
       //".checkbox" change 
       $('input[name=company]').change(function(){ 
           //uncheck "select all", if one of the listed checkbox item is unchecked
-          if(false == $(this).prop("checked")){ //if this item is unchecked
+          if(false === $(this).prop("checked")){ //if this item is unchecked
               $("#check_all").prop('checked', false); //change "select all" checked status to false
           }
           //check "select all" if all checkbox items are checked
@@ -211,8 +211,6 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products. I 
               $("#check_all").prop('checked', true);
           }
       });
-
-      console.log("hello")
     </script>
 
   </body>
