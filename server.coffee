@@ -12,9 +12,8 @@ app.set 'view engine', 'ejs'
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.post '/', (req, res) ->
-  {fname, lname, email, address, city, state, zip, emailText} = req.body
-  res.render 'index'
+app.get '/send', (req, res) ->
+  res.redirect '/'
 
 app.listen app.get('port'), () ->
   console.log 'Node app is running on port', app.get('port')
