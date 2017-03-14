@@ -1,10 +1,13 @@
 {
-  "testingCompany": {
+  "testingCompanyGET": {
     "name": "Testing Company",
-    "url": "http://www.floridasnatural.com/contact-us.php",
-    "method": "post",
+    "url": "http://localhost:5000/test_contact",
+    "method": "get",
     "form": {
-      "name": "name",
+      "fname": "fname",
+      "lname": "lname",
+      "subject": "subject",
+      "fullName": "name",
       "body": "comments",
       "address": "address",
       "email": "email",
@@ -17,10 +20,10 @@
 
   "foridasnatural": {
     "name": "Florida's Natural",
-    "url": "http://www.floridasnatural.com/contact-us.php",
+    "url": "NOPE DON'T SEND THIS xxxxx http://www.floridasnatural.com/contact-us.php",
     "method": "post",
     "form": {
-      "name": "name",
+      "fullName": "name",
       "body": "comments",
       "address": "address",
       "email": "email",

@@ -51,7 +51,7 @@
                 </div>
                 <% for (company in companyNames) {%>
                   <div class="checkbox">
-                    <label><input type="checkbox" name="company" value= <%=company%> > <%=companyNames[company]%> </label>
+                    <label><input type="checkbox" name="companies" value= <%=company%> > <%=companyNames[company]%> </label>
                   </div>
                 <%} %>
               </div>
@@ -63,7 +63,7 @@
 
               <div class="form-group">
                 <label for="email">Editable text</label>
-                <textarea class="form-control" rows="14" name="emailBody" id="emailBody">
+                <textarea class="form-control" rows="14" name="body" id="body">
 I have been a long-time buyer of {company}. However, a few months ago, {company} changed their packaging to include a sticker from the "Non-GMO Project". This was deeply disturbing to me, and I have discontinued purchase of {company's} products as a result.
 
 To date, no study has ever shown negative effects from the consumption of GMOs. Indeed, perpetuating the myth that GMOs are inherently less healthy than non-GMOs is damaging to the continued research efforts to end hunger and nutrient-deficiency around the world.
