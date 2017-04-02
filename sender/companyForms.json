@@ -18,11 +18,80 @@
     "required": ["name", "email", "zipcode"]
   },
 
-  "foridasnatural": {
+  "floridasnatural": {
     "name": "Florida's Natural",
     "url": "NOPE DON'T SEND THIS xxxxx http://www.floridasnatural.com/contact-us.php",
     "method": "post",
     "form": {
+      "fullName": "name",
+      "body": "comments",
+      "address": "address",
+      "email": "email",
+      "city": "city",
+      "state": "state",
+      "zip": "zip"
+    },
+    "required": ["name", "email", "zipcode"]
+  },
+
+  "stonyfield": {
+    "name": "Stonyfield",
+    "url": "http://www.stonyfield.com/contact-us/feedback",
+    "method": "post",
+    "form": {
+      "fname": "firstname",
+      "lname": "lastname",
+      "body": "feedback_comments",
+      "address": "street_address",
+      "email": "email",
+      "city": "city",
+      "state": "feedback_state",
+      "zip": "zip_code"
+    },
+    "required": ["firstname", "lastname", "email", "street_address",
+      "city", "feedback_state", "zip_code", "feedback_comments"]
+  },
+
+  "chobani": {
+    "name": "Chobani",
+    "url": "http://care.chobani.com/ics/support/ticketNewProcess.asp",
+    "method": "get",
+    "form": {
+      "fname": "customerFirstName",
+      "lname": "customerLastName",
+      "facd04f6-b956-4478-9c0c-0a66568f0bc1*********": "customerUserName",
+      "body": "FIELD_89109_TEXTAREA_varchar",
+      "email": "email"
+    },
+    "required": ["customerFirstName", "customerLastName", "email", 
+      "FIELD_89109_TEXTAREA_varchar"]
+  },
+
+  "cuties": {
+    "name": "Cuties",
+    "url": "http://cutiescitrus.com/contact/",
+    "method": "post",
+    "form": {
+      "fname": "input_1",
+      "lname": "input_2",
+      "body": "input_11",
+      "address": "input_3",
+      "email": ["input_7", "input_7_2"],
+      "city": "input_4",
+      "state": "input_5",
+      "zip": "input_6"
+    },
+    "required": ["input_1", "input_2", "input_3", "input_4", "input_5", "input_6"]
+  },
+
+  "annies": {
+    "name": "Annie's",
+    "url": "http://consumercontacts.generalmills.com/ConsolidatedContact.aspx?page=http://www.annies.com",
+    "method": "post",
+    "form": {
+      "fname": "fname",
+      "lname": "lname",
+      "subject": "subject",
       "fullName": "name",
       "body": "comments",
       "address": "address",
