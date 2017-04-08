@@ -22,12 +22,11 @@ floridasnatural = (messageInfo) ->
   method = 'post'
 
   name = messageInfo.fullName
-  address = messageInfo.address
-  city = messageInfo.city
-  state = messageInfo.state
   zip = messageInfo.zip
+  email = messageInfo.email
+  comments = messageInfo.body
 
-  qs = {name, address, city, state, zip}
+  qs = {name, address, city, state, zip, email, comments}
 
   return {url, method, qs}
 

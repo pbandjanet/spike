@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col-sm-12 text-center">
           <br />
-          <h1><big class="text-uppercase">Support Rational Food Research</big>
+          <h1><big class="text-uppercase">Support Rational Improvements to Food</big>
           <br />
           <small>What are genetically-modified organisms (GMOs)?</small>
           </h1>
@@ -53,9 +53,7 @@
           are organisms in which the DNA has been artificially modified. This may sound scary, 
           but gene editing has been rigorously studied by scientists for decades. In fact, this technology has already been used to make our food more drought-tolerant, pest-resistant, and nutritious!</p>
 
-          <p>Unfortunately, groups like the Non-GMO Project are stifling efforts to continue this research and meet the world's caloric and nutritional needs, especially as population numbers rise and the climate changes. <strong>Speak out, and let companies know that you support  efforts to improve our food.</strong></p>
-
-          <small><p>Watch the video on the right from <a href="http://kurzgesagt.org/">Kurgesagt</a> for a more detailed breakdown.</p></small>
+          <p>Unfortunately, groups like the Non-GMO Project are stifling efforts to continue this research and meet the world's caloric and nutritional needs, especially as population numbers rise and the climate changes. <strong>Speak out, and let companies know that you support  well-studied, rational steps to improve our food.</strong></p>
           </big>
         </div>
         <div class="col-sm-7">
@@ -65,19 +63,23 @@
 
       <hr>
 
+      <!--<div class='row'>
+        <div class='col-sm-12 text-center text-uppercase'>
+          <h1>Speak Out</h1>
+        </div>
+      </div>-->
+      <br />
+
       <form action='/send'>
 
       <div class="row">
         <div class="col-sm-6">
-          <h3>Speak Out</h3>
-          
-            <label for="company">Select companies to email</label>
-            <!--<button type="button" class="btn btn-default" id='check_all'>Select all</button>-->
+            <label for="company"><big>Companies to contact</big></label>
+            <div class="btn-group-sm">
+              <button type="button" class="btn btn-default" id='check_all'>Select all</button>
+              <button type="button" class="btn btn-default" id='uncheck_all'>Deselect all</button>
+            </div>
             <div class="form-group" style="max-height:120px;overflow:auto"> 
-              <div class="checkbox">
-                <label><input type="checkbox" id="check_all">Select all</label>
-              </div>
-
               <% for (var i=0; i<locals.companyKeys.length; i++) {%>
                 <div class="checkbox">
                   <label><input type="checkbox" name="company" value=<%=locals.companyKeys[i]%> >
@@ -88,14 +90,14 @@
             </div>
 
             <div class="form-group">
-              <label for="subject">Subject</label>
-              <input type="text" class="form-control" name="subject" id="subject" value="Support rational food research">
+              <label for="subject"><big>Subject</big></label>
+              <input type="text" class="form-control" name="subject" id="subject" value="Support rational improvements to food" required>
             </div>
 
             <div class="form-group">
-              <label for="email">Editable text</label>
-              <textarea class="form-control" rows="14" name="body" id="body">
-I have been a long-time buyer of {company}. However, I have recently noticed that {company} includes a sticker from the "Non-GMO Project". This is deeply disturbing to me, and I have discontinued purchase of {company's} products as a result.
+              <label for="email"><big>Editable text</big></label>
+              <textarea class="form-control" rows="14" name="body" id="body" required>
+I have been a long-time buyer of {company}. However, I have recently noticed that {company} supports the "Non-GMO Project". This is deeply disturbing to me, and I have discontinued purchase of {company's} products as a result.
 
 To date, no study has ever shown negative effects from the consumption of GMOs. Indeed, perpetuating the myth that GMOs are inherently less healthy than non-GMOs is damaging to the continued research efforts to end hunger and nutrient-deficiency around the world.
 
@@ -105,35 +107,34 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
         </div>
 
         <div class="col-sm-6">
-          <h3>Your Contact Information:</h3>
           <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" class="form-control" name="fname" id="fname">
+            <label for="fname"><big>First Name</big></label>
+            <input type="text" class="form-control" name="fname" id="fname" required>
           </div>
 
           <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" class="form-control" name="lname" id="lname">
+            <label for="lname"><big>Last Name</big></label>
+            <input type="text" class="form-control" name="lname" id="lname" required>
           </div>
 
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" id="email">
+            <label for="email"><big>Email</big></label>
+            <input type="email" class="form-control" name="email" id="email" required>
           </div>
 
           <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" name="address" id="address">
+            <label for="address"><big>Address</big></label>
+            <input type="text" class="form-control" name="address" id="address" required>
           </div>
 
           <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" class="form-control" name="city" id="city">
+            <label for="city"><big>City</big></label>
+            <input type="text" class="form-control" name="city" id="city" required>
           </div>
 
           <div class="form-group">
-            <label for="state">State</label>
-            <select class="form-control" name="state" id="state">
+            <label for="state"><big>State</big></label>
+            <select class="form-control" name="state" id="state" required>
               <option>Alabama</option>
               <option>Alaska</option>
               <option>Arizona</option>
@@ -189,8 +190,14 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
           </div>
 
           <div class="form-group">
-            <label for="zip">Zip Code</label>
-            <input type="text" class="form-control" name="zip" id="zip">
+            <label for="zip"><big>Zip Code</big></label>
+            <input type="text" class="form-control" name="zip" id="zip" required>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox">
+              
+            </div>
           </div>
 
           <input id="submitButton" type="submit" class="btn btn-success">
@@ -206,20 +213,13 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
       $('#check_all').click(function() {
           $('input[name=company]').prop('checked', true);
       });
+
+      $('#uncheck_all').click(function() {
+          $('input[name=company]').prop('checked', false);
+      });
+
       var companiesToEmail = <%-JSON.stringify(locals.companyNames)%>;
       console.log(companiesToEmail);
-
-      //".checkbox" change 
-      $('input[name=company]').change(function(){ 
-          //uncheck "select all", if one of the listed checkbox item is unchecked
-          if(false === $(this).prop("checked")){ //if this item is unchecked
-              $("#check_all").prop('checked', false); //change "select all" checked status to false
-          }
-          //check "select all" if all checkbox items are checked
-          if ($('input[name=company]:checked').length == $('input[name=company]').length ){
-              $("#check_all").prop('checked', true);
-          }
-      });
     </script>
 
   </body>
