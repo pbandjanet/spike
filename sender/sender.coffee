@@ -254,5 +254,43 @@ barkthins = (messageInfo) ->
 
   return {url, method, qs}
 
+# used id instead of name
+companies["Nishiki"] = 
+nishiki = (messageInfo) ->
+  url = 'http://www.jfc.com/api/api.php?api_call=contact_form'
+  method = 'post'
+
+  qs =
+    {
+      'name': messageInfo.name
+      'email': messageInfo.email
+      'your_comments': messageInfo.body
+      'contact_type': 'contact_us'
+    }
+
+  return {url, method, qs}
+
+
+companies['Bertolli'] =
+bertolli = (messageInfo) ->
+  url = 'www.villabertolli.com/contact-us#wpcf7-f710-p6-o1'
+  method = 'post'
+
+  qs =
+    {
+      'bertolli-email': 'Bertolli Oils &amp; Vinegars'
+      'inquiryType': 'Product Concern'
+      'email': messageInfo.email
+      'firstName': messageInfo.fname
+      'lastName': messageInfo.lname
+      'address': messageInfo.address
+      'locality': messageInfo.city
+      'region': messageInfo.state
+      'zip': messageInfo.zip
+      'Comment': messageInfo.body
+    }
+
+  return {url, method, qs}
+
 module.exports.companies = companies
 
