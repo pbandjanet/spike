@@ -16,12 +16,13 @@ app.set 'view engine', 'ejs'
 app.use bodyParser.json()
 app.use bodyParser.urlencoded {extended: true}
 
-companyNames = sender.companyNames
+{companyNames, companyKeys} = sender
+
 
 mainPage = (req, res) ->
   locals = {
     companyNames
-    companyKeys: Object.keys(companyNames).sort()
+    companyKeys
     }
 
   if req.method is 'POST'
