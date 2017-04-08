@@ -4,19 +4,17 @@ _ = require 'lodash'
 
 ASYNC_LIMIT = 10
 
-companies = {}
-module.exports.companies = companies
+companySenders = {}
 
 module.exports.emailCompany =
 emailCompany = (company, messageInfo, callback) ->
-  request companies[company](messageInfo), callback
+  request companySenders[company](messageInfo), callback
 
 module.exports.emailCompanyList =
-emailCompanyList = (companies, messageInfo, idInfo, callback) ->
-  send = _.partial emailCompany, _, messageInfo
-  async.eachLimit companies, ASYNC_LIMIT, send, callback
+emailCompanyList = (companyList, messageInfo, callback) ->
+  _.map companyList, (company) -> companySenders[company](messageInfo)
 
-companies["Florida's Natural"] =
+companySenders["Florida's Natural"] =
 floridasnatural = (messageInfo) ->
   url = 'http://www.floridasnatural.com/contact-us.php'
   method = 'post'
@@ -30,7 +28,7 @@ floridasnatural = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Stonyfield"] =
+companySenders["Stonyfield"] =
 stonyfield = (messageInfo) ->
   url = "http://www.stonyfield.com/contact-us/feedback"
   method = 'post'
@@ -57,7 +55,7 @@ stonyfield = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Chobani"] =
+companySenders["Chobani"] =
 chobani = (messageInfo) ->
   url = "http://care.chobani.com/ics/support/ticketNewProcess.asp"
   method = 'get'
@@ -87,7 +85,7 @@ chobani = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Cuties"] =
+companySenders["Cuties"] =
 cuties = (messageInfo) ->
   url = "http://cutiescitrus.com/contact/"
   method = 'post'
@@ -119,7 +117,7 @@ cuties = (messageInfo) ->
 
 # 4000 character limit for body
 # add age thingy
-companies["Annies"] =
+companySenders["Annies"] =
 annies = (messageInfo) ->
   url = "http://consumercontacts.generalmills.com/ConsolidatedContact.aspx?page=http://www.annies.com"
   method = 'post'
@@ -135,7 +133,7 @@ annies = (messageInfo) ->
   return {url, method, qs}
 
 # age over 18
-companies["Silk"] =
+companySenders["Silk"] =
 silk = (messageInfo) ->
   url = "https://wwcrs.zingstudios.com/silk/form.php"
   method = 'post'
@@ -156,7 +154,7 @@ silk = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["BoomChickaPop"] =
+companySenders["BoomChickaPop"] =
 boomchickapop = (messageInfo) ->
   url = "https://boomchickapop.com/contact/#wpcf7-f2870-p2628-o1"
   method = 'post'
@@ -171,7 +169,7 @@ boomchickapop = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Apple and Eve"] =
+companySenders["Apple and Eve"] =
 appleandeve = (messageInfo) ->
   url = 'www.appleandeve.com/contact/multipart/form-data'
   method = 'post'
@@ -190,7 +188,7 @@ appleandeve = (messageInfo) ->
   return {url, method, qs}
 
 # check that this will not send spam
-companies["Authentic Royal"] =
+companySenders["Authentic Royal"] =
 authenticroyal = (messageInfo) ->
   url = 'www.authenticroyal.com/contact/multipart/form-data'
   method = 'post'
@@ -207,7 +205,7 @@ authenticroyal = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Westminster Crackers"] =
+companySenders["Westminster Crackers"] =
 westminstercrackers = (messageInfo) ->
   url = 'www.westminstercrackers.com/sendform.php'
   method = 'post'
@@ -222,7 +220,7 @@ westminstercrackers = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Gourmet Basics"] =
+companySenders["Gourmet Basics"] =
 gourmetbasics = (messageInfo) ->
   url = 'www.gourmetbasics.com/contact-us/'
   method = 'post'
@@ -236,7 +234,7 @@ gourmetbasics = (messageInfo) ->
 
   return {url, method, qs}
 
-companies["Barkthins"] =
+companySenders["Barkthins"] =
 barkthins = (messageInfo) ->
   url = 'barkthins.com/contact-us/#wpcf7-f8159-p8156-o1'
   method = 'post'
@@ -252,7 +250,7 @@ barkthins = (messageInfo) ->
   return {url, method, qs}
 
 # used id instead of name
-companies["Nishiki"] = 
+companySenders["Nishiki"] = 
 nishiki = (messageInfo) ->
   url = 'http://www.jfc.com/api/api.php?api_call=contact_form'
   method = 'post'
@@ -268,7 +266,7 @@ nishiki = (messageInfo) ->
   return {url, method, qs}
 
 
-companies['Bertolli'] =
+companySenders['Bertolli'] =
 bertolli = (messageInfo) ->
   url = 'www.villabertolli.com/contact-us#wpcf7-f710-p6-o1'
   method = 'post'
@@ -289,7 +287,7 @@ bertolli = (messageInfo) ->
 
   return {url, method, qs}
 
-companies['Testing Company'] =
+companySenders['Testing Company'] =
 testingcompany = (messageInfo) ->
   url = 'http://localhost:5000/test_contact'
   method = 'get'
@@ -301,11 +299,11 @@ testingcompany = (messageInfo) ->
     }
   return {url, method, qs}
 
-for key of companies
-  companies[key].companyName = key
+for key of companySenders
+  companySenders[key].companyName = key
 
-companies = _.mapKeys companies,
+companySenders = _.mapKeys companySenders,
   (value, key) -> key.replace(/\W/g, '')
-console.log companies
-module.exports.companyNames = _.mapValues companies, 
+console.log companySenders
+module.exports.companyNames = _.mapValues companySenders,
   (value) -> value.companyName

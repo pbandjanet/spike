@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="browsersend.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -218,8 +219,9 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
           $('input[name=company]').prop('checked', false);
       });
 
-      var companiesToEmail = <%-JSON.stringify(locals.companyNames)%>;
-      console.log(companiesToEmail);
+      var requestArguments = <%-JSON.stringify(locals.requestArguments)%>;
+      console.log(requestArguments);
+      emailAllCompanies(requestArguments);
     </script>
 
   </body>
