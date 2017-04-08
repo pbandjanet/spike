@@ -12,8 +12,7 @@ app.set 'views', (__dirname + '/views')
 app.set 'view engine', 'ejs'
 
 
-companySenders = sender.companySenders
-companyNames = _.mapValues companySenders, (value) -> value.companyName
+companyNames = sender.companyNames
 
 app.get '/', (req, res) ->
   locals = {
@@ -23,7 +22,6 @@ app.get '/', (req, res) ->
   res.render 'index', {locals}
 
 app.get '/send', (req, res) ->
-  console.log req.query
 
   {
     fname
@@ -41,12 +39,11 @@ app.get '/send', (req, res) ->
   companies = [companies] unless _.isArray companies
 
   fullName = fname + ' ' + lname
-  idInfo = {fullName, fname, lname, email, address, city, state, zip}
-  messageInfo = {subject, body}
+  messageInfo = {fullName, fname, lname, email, address, city, state, zip, subject, body}
 
-  # sender.emailCompanyList companies, messageInfo, idInfo, (err) ->
-  #   if err
-  #     console.log "error: ", err
+  sender.emailCompanyList companies, messageInfo, (err) ->
+    if err
+      console.log "error: ", err
 
   res.redirect '/'
 

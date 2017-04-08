@@ -82,7 +82,7 @@
             <div class="form-group" style="max-height:120px;overflow:auto"> 
               <% for (var i=0; i<locals.companyKeys.length; i++) {%>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="company" value=<%=locals.companyKeys[i]%> >
+                  <label><input type="checkbox" name="companies" value=<%=locals.companyKeys[i]%> >
                   <%=locals.companyNames[locals.companyKeys[i]]%> 
                   </label>
                 </div>
@@ -211,7 +211,7 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
 
     <script>
       $('#check_all').click(function() {
-          $('input[name=company]').prop('checked', true);
+          $('input[name=companies]').prop('checked', true);
       });
 
       $('#uncheck_all').click(function() {

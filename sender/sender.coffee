@@ -8,12 +8,12 @@ companies = {}
 module.exports.companies = companies
 
 module.exports.emailCompany =
-emailCompany = (company, messageInfo, idInfo, callback) ->
+emailCompany = (company, messageInfo, callback) ->
   request companies[company](messageInfo), callback
 
 module.exports.emailCompanyList =
 emailCompanyList = (companies, messageInfo, idInfo, callback) ->
-  send = _.partial emailCompany, _, messageInfo, idInfo
+  send = _.partial emailCompany, _, messageInfo
   async.eachLimit companies, ASYNC_LIMIT, send, callback
 
 companies["Florida's Natural"] =
@@ -289,10 +289,23 @@ bertolli = (messageInfo) ->
 
   return {url, method, qs}
 
-module.exports.companies = companies
+companies['Testing Company'] =
+testingcompany = (messageInfo) ->
+  url = 'http://localhost:5000/test_contact'
+  method = 'get'
+  qs =
+    {
+      'fname': messageInfo.fname
+      'lname': messageInfo.lname
+      'email': messageInfo.email
+    }
+  return {url, method, qs}
 
 for key of companies
   companies[key].companyName = key
 
-module.exports.companySenders = _.mapKeys companies,
+companies = _.mapKeys companies,
   (value, key) -> key.replace(/\W/g, '')
+console.log companies
+module.exports.companyNames = _.mapValues companies, 
+  (value) -> value.companyName
