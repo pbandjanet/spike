@@ -10,16 +10,6 @@ companies = {}
 
 module.exports.emailCompany =
 emailCompany = (company, messageInfo, idInfo, callback) ->
-  companyForm = companyForms[company]
-  {url, method} = companyForm
-  {subject, body} = messageInfo
-  body = body.replace "{company}", company
-  subject = subject.replace "{company}", company
-  qs = _.chain idInfo
-          .extend {body, subject}
-          .mapKeys (value, key) -> companyForm.form[key]
-          .pick _.values(companyForm.form)
-          .value()
   request companies[company](messageInfo), callback
 
 
