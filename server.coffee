@@ -1,7 +1,7 @@
 express = require 'express'
 _ = require 'lodash'
 sender = require './sender/sender'
-companyForms = require './sender/companyForms.json'
+#companyForms = require './sender/companyForms.json'
 
 app = express()
 
@@ -12,10 +12,15 @@ app.set 'views', (__dirname + '/views')
 app.set 'view engine', 'ejs'
 
 
-companyNames = _.mapValues companyForms, (companyForm) -> companyForm.name
+companySenders = sender.companySenders
+companyNames = _.mapValues companySenders, (value) -> value.companyName
 
 app.get '/', (req, res) ->
-  res.render 'index', {companyNames}
+  locals = {
+    companyNames
+    companyKeys: Object.keys(companyNames).sort()
+    }
+  res.render 'index', {locals}
 
 app.get '/send', (req, res) ->
   console.log req.query
@@ -39,9 +44,9 @@ app.get '/send', (req, res) ->
   idInfo = {fullName, fname, lname, email, address, city, state, zip}
   messageInfo = {subject, body}
 
-  sender.emailCompanyList companies, messageInfo, idInfo, (err) ->
-    if err
-      console.log "error: ", err
+  # sender.emailCompanyList companies, messageInfo, idInfo, (err) ->
+  #   if err
+  #     console.log "error: ", err
 
   res.redirect '/'
 

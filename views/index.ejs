@@ -49,9 +49,11 @@
                 <div class="checkbox">
                   <label><input type="checkbox" id="check_all">Select all</label>
                 </div>
-                <% for (company in companyNames) {%>
+                <% for (var i=0; i<locals.companyKeys.length; i++) {%>
                   <div class="checkbox">
-                    <label><input type="checkbox" name="company" value= <%=company%> > <%=companyNames[company]%> </label>
+                    <label><input type="checkbox" name="company" value=<%=locals.companyKeys[i]%> >
+                    <%=locals.companyNames[locals.companyKeys[i]]%> 
+                    </label>
                   </div>
                 <%} %>
               </div>
@@ -162,7 +164,7 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products. I 
               <input type="text" class="form-control" name="zip" id="zip">
             </div>
 
-            <input type="submit" class="btn btn-success">
+            <input id="submitButton" type="submit" class="btn btn-success">
 
           </div>
         </div>
@@ -175,6 +177,8 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products. I 
       $('#check_all').click(function() {
           $('input[name=company]').prop('checked', true);
       });
+      var companiesToEmail = <%-JSON.stringify(locals.companyNames)%>;
+      console.log(companiesToEmail);
 
       //".checkbox" change 
       $('input[name=company]').change(function(){ 
