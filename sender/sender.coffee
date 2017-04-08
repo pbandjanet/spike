@@ -4,7 +4,7 @@ _ = require 'lodash'
 
 ASYNC_LIMIT = 10
 
-companSenders = {}
+companySenders = {}
 
 module.exports.emailCompany =
 emailCompany = (company, messageInfo, callback) ->
