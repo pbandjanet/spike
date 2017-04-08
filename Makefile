@@ -2,4 +2,4 @@ run: browserify
 	coffee server.coffee
 
 browserify:
-	browserify -t coffeeify sender/browsersend.coffee > browsersend.js
+	browserify -r ./sender/browsersend.coffee:browser-send -t coffeeify > views/js/browsersend.js
