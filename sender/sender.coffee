@@ -1,17 +1,15 @@
 async = require 'async'
 request = require 'request'
-
-#companyForms = require './companyForms.json'
 _ = require 'lodash'
 
 ASYNC_LIMIT = 10
 
 companies = {}
+module.exports.companies = companies
 
 module.exports.emailCompany =
 emailCompany = (company, messageInfo, idInfo, callback) ->
   request companies[company](messageInfo), callback
-
 
 module.exports.emailCompanyList =
 emailCompanyList = (companies, messageInfo, idInfo, callback) ->
@@ -294,3 +292,8 @@ bertolli = (messageInfo) ->
 
 module.exports.companies = companies
 
+for key of companies
+  companies[key].companyName = key
+
+module.exports.companySenders = _.mapKeys companies,
+  (value, key) -> key.replace(/\W/g, '')
