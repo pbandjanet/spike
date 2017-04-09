@@ -17,8 +17,7 @@ emailCompanyList = (companyList, messageInfo, callback) ->
 
 processBody = (companyName, messageInfo) ->
   {body} = messageInfo
-  body.replace "{company}", companyName
-  messageInfo.body = body
+  messageInfo.body = body.replace "{company}", companyName
   messageInfo
 
 makeSender = (companyName, getRequest) ->
