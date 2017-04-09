@@ -26,7 +26,15 @@ makeSender = (companyName, getRequest) ->
   {
     companyName
     getRequest: (messageInfo) ->
-      getRequest processBody(companyName, messageInfo)
+      {url, method, qs, enc} = getRequest processBody(companyName, messageInfo)
+      if method is 'post'
+        enc ?= 'application/x-www-form-urlencoded'
+        if enc is 'application/x-www-form-urlencoded'
+          return {url, method, form: qs}
+        if enc is 'multipart/form-data'
+          return {url, method, formData: qs}
+      return {url, method, qs}
+
   }
 
 companySenders['floridasnatural'] = makeSender "Florida's Natural",
