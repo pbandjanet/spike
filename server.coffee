@@ -15,6 +15,7 @@ app.set 'view engine', 'ejs'
 
 app.use bodyParser.json()
 app.use bodyParser.urlencoded {extended: true}
+app.use multer().none()
 
 {companyNames, companyKeys} = sender
 
@@ -26,7 +27,7 @@ app.get '/', (req, res) ->
     }
   res.render 'index', {locals}
 
-app.post '/submitContact', multer().none(), (req, res) ->
+app.post '/submitContact', (req, res) ->
   console.log 'got submitcontact!'
   console.log "sendContact query: ", req.body
   {
