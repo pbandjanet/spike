@@ -115,7 +115,6 @@ cuties = (messageInfo) ->
 
   return {url, method, qs}
 
-# 4000 character limit for body
 # add age thingy
 companySenders["Annies"] =
 annies = (messageInfo) ->
@@ -241,6 +240,11 @@ barkthins = (messageInfo) ->
 
   qs =
     {
+      '_wpcf7': '8159'
+      '_wpcf7_version': '4.3.1'
+      '_wpcf7_locale': 'en_US'
+      '_wpcf7_unit_tag': 'wpcf7-f8159-p8156-o1'
+      '_wpnonce': 'ae4d0ee498'
       'your-name': messageInfo.name
       'your-email': messageInfo.email
       'your-subject': messageInfo.subject
@@ -265,24 +269,43 @@ nishiki = (messageInfo) ->
 
   return {url, method, qs}
 
-
-companySenders['Bertolli'] =
-bertolli = (messageInfo) ->
-  url = 'www.villabertolli.com/contact-us#wpcf7-f710-p6-o1'
+companySenders['Bigelow Tea'] =
+bigelow = (messageInfo) ->
+  url = 'www.bigelowtea.com/Contact-Us.aspx'
   method = 'post'
 
   qs =
     {
-      'bertolli-email': 'Bertolli Oils &amp; Vinegars'
-      'inquiryType': 'Product Concern'
-      'email': messageInfo.email
-      'firstName': messageInfo.fname
-      'lastName': messageInfo.lname
-      'address': messageInfo.address
-      'locality': messageInfo.city
-      'region': messageInfo.state
-      'zip': messageInfo.zip
-      'Comment': messageInfo.body
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$FIRST_NAME$textbox': messageInfo.fname
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$LAST_NAME$textbox': messageInfo.lname
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$EMAIL$textbox': messageInfo.email
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$ADDRESS1$textbox': messageInfo.address
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$CITY$textbox': messageInfo.city
+      ##### FIX THIS
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$STATE$dropDownList': messageInfo.state
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$ZIP$textbox': messageInfo.zip
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$REASON$dropDownList': 'Product Information &lt;ContactUs@bigelowtea.com>'
+      'p$lt$ctl06$pageplaceholder$p$lt$ctl03$BizForm$viewBiz$ctl00$COMMENTS$textbox': messageInfo.body
+    }
+
+  return {url, method, qs}
+
+companySenders['Blue Diamond'] =
+bluediamond = (messageInfo) ->
+  url = 'www.bluediamond.com/applications/contact.cfm'
+  method = 'post'
+
+  qs =
+    {
+      'theView': 'thanks'
+      'a': '0'
+      'u': ''
+      'navid': '1'
+      'FirstName': messageInfo.fname
+      'LastName': messageInfo.lname
+      'Email': messageInfo.email
+      'subject': 'Product Complaint'
+      'Comments': messageInfo.body
     }
 
   return {url, method, qs}
