@@ -26,7 +26,8 @@ makeSender = (companyName, getRequest) ->
     companyName
     getRequest: (messageInfo) ->
       {url, method, qs, enc} = getRequest processBody(companyName, messageInfo)
-      if method is 'post'
+      method = method.toUpperCase()
+      if method is 'POST'
         enc ?= 'application/x-www-form-urlencoded'
         if enc is 'application/x-www-form-urlencoded'
           return {url, method, form: qs}

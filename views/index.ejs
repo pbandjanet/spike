@@ -234,16 +234,13 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
       });
 
       $('#submitButton').click(function(event) {
-        console.log('clicked submit!!!');
         var formElement = document.getElementById('contactCompanyForm');
         var formData = new FormData(formElement);
         request = new XMLHttpRequest();
         request.open('POST', 'submitContact');
         request.onreadystatechange = function() {
-          console.log("hihi");
           if(request.readyState === 4 && request.status === 200) {
-            console.log(request.response);
-            emailAllCompanies(JSON.parse(request.response))
+            emailAllCompanies(JSON.parse(request.response));
           }
         };
         request.send(formData);
