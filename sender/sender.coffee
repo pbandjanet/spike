@@ -236,7 +236,7 @@ companySenders['westminstercrackers'] = makeSender 'Westminster Crackers',
 
 companySenders['gourmetbasics'] = makeSender 'Gourmet Basics',
   (messageInfo) ->
-    url = 'www.gourmetbasics.com/contact-us/'
+    url = 'http://www.gourmetbasics.com/umbraco/PliableSender.asmx/sendForm'
     method = 'post'
 
     qs =
@@ -310,6 +310,20 @@ companySenders['testingget'] = makeSender 'Testing GET',
         'fname': messageInfo.fname
         'lname': messageInfo.lname
         'email': messageInfo.email
+        'comment': messageInfo.body
+      }
+    return {url, method, qs}
+
+companySenders['testingpost'] = makeSender 'Testing POST',
+  (messageInfo) ->
+    url = 'http://localhost:5000/test_contact'
+    method = 'post'
+    qs =
+      {
+        'fname': messageInfo.fname
+        'lname': messageInfo.lname
+        'email': messageInfo.email
+        'comment': messageInfo.body
       }
     return {url, method, qs}
 

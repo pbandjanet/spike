@@ -1,7 +1,7 @@
 _ = require 'lodash'
 bodyParser = require 'body-parser'
 express = require 'express'
-
+multer = require 'multer'
 sender = require './sender/sender'
 #companyForms = require './sender/companyForms.json'
 
@@ -19,52 +19,52 @@ app.use bodyParser.urlencoded {extended: true}
 {companyNames, companyKeys} = sender
 
 
-mainPage = (req, res) ->
+app.get '/', (req, res) ->
   locals = {
     companyNames
     companyKeys
     }
-
-  if req.method is 'POST'
-    {
-      fname
-      lname
-      email
-      address
-      city
-      state
-      zip
-      body
-      subject
-      companies
-      } = req.body
-    console.log "query: ", req.body
-
-    if companies?
-      companies = [companies] unless _.isArray companies
-
-      fullName = fname + ' ' + lname
-      messageInfo = 
-        {
-          fullName
-          fname
-          lname
-          email
-          address
-          city
-          state
-          zip
-          subject
-          body
-        }
-
-      requestArguments = sender.emailCompanyList companies, messageInfo
-      locals.requestArguments = requestArguments
-  console.log locals
   res.render 'index', {locals}
 
-app.get '/', mainPage
-app.post '/', mainPage
+app.post '/submitContact', multer().none(), (req, res) ->
+  console.log 'got submitcontact!'
+  console.log "sendContact query: ", req.body
+  {
+    fname
+    lname
+    email
+    address
+    city
+    state
+    zip
+    body
+    subject
+    companies
+    } = req.body
+
+  if companies?
+    companies = [companies] unless _.isArray companies
+
+    fullName = fname + ' ' + lname
+    messageInfo =
+      {
+        fullName
+        fname
+        lname
+        email
+        address
+        city
+        state
+        zip
+        subject
+        body
+      }
+
+    requestArguments = sender.emailCompanyList companies, messageInfo
+    console.log "requestArgs: ",requestArguments
+    res.json(requestArguments)
+  else
+    res.redirect '/'
 
 app.get '/send', (req, res) ->
 
@@ -84,7 +84,19 @@ app.get '/send', (req, res) ->
   companies = [companies] unless _.isArray companies
 
   fullName = fname + ' ' + lname
-  messageInfo = {fullName, fname, lname, email, address, city, state, zip, subject, body}
+  messageInfo =
+    {
+      fullName
+      fname
+      lname
+      email
+      address
+      city
+      state
+      zip
+      subject
+      body
+    }
 
   sender.emailCompanyList companies, messageInfo, (err) ->
     if err
@@ -96,7 +108,7 @@ app.get '/send', (req, res) ->
 #testing endpoint
 app.post '/test_contact', (req, res) ->
   console.log "hit the test endpoint!"
-  console.log req.query
+  console.log req.body
   console.log "posted"
   res.redirect '/'
 

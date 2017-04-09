@@ -18,59 +18,73 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+      #topimage {
+        background-image: url("images/crops2.jpg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center top;
+        background-attachment: fixed;
+      }
+    </style>
   </head>
 
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">WebSiteName</a>
+          <a class="navbar-brand" href="#">eatRational</a>
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
           <li><a href="">Facts</a></li>
-          <li><a href="#">Non-GMO Companies</a></li>
+          <li><a href="#">About</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="container" style="margin-top:50px">
-      <div class="row">
-        <div class="col-sm-12 text-center">
-          <br />
-          <h1><big class="text-uppercase">Support Rational Improvements to Food</big>
-          <br />
-          <small>What are genetically-modified organisms (GMOs)?</small>
-          </h1>
-          <br />
-        </div> 
+    <div class="jumbotron" id="topimage" style='margin-top:50px; color:white'>
+      <div class="container text-center">
+        <h1>better food | better world</h1>
+        <p>improving the quality and quantity of our food</p>
+      </div>
+    </div>
+
+    <div class="container text-justify">
+      <div class="text-center">
+        <h3>Genetic engineering can make our food more drought-tolerant, pest-resistant, and nutritious. Why are we allowing others to control the conversation?</h3>
+        <br />
       </div>
       <div class="row">
-        <div class="col-sm-5 text-justify">
-          <big>
-          <p>As defined by the World Health Organization, genetically-modified organisms, or GMOs,
-          are organisms in which the DNA has been artificially modified. This may sound scary, 
-          but gene editing has been rigorously studied by scientists for decades. In fact, this technology has already been used to make our food more drought-tolerant, pest-resistant, and nutritious!</p>
-
-          <p>Unfortunately, groups like the Non-GMO Project are stifling these efforts to meet the world's caloric and nutritional needs, which are critical as population numbers rise and the climate changes. <strong>Speak out, and let companies know that you support well-studied, rational steps to improve our food.</strong></p>
-          </big>
+        <div class="col-sm-3 text-left">
+          <a href=""><img src="images/whataregmos.png" class="img-responsive" style="width:100%" alt="What are GMOs"></a>
         </div>
-        <div class="col-sm-7">
-          <iframe class="center-block" width="640.5" height="360" src="https://www.youtube.com/embed/7TmcXYp8xu4" frameborder="0" allowfullscreen></iframe>
+
+        <div class="col-sm-3 text-left">
+          <a href=""><img src="images/agriculture_thumbnail.png" class="img-responsive" style="width:100%" alt="Agriculture Impacts"></a>
+        </div>
+
+        <div class="col-sm-3 text-left">
+          <a href=""><img src="images/healthimpacts.png" class="img-responsive" style="width:100%" alt="Health Impacts"></a>
+        </div>
+
+        <div class="col-sm-3 text-left">
+          <a href=""><img src="images/environment_thumbnail.png" class="img-responsive" style="width:100%" alt="Environmental Impacts"></a>
         </div>
       </div>
+      <br />
+      <div class="text-center">
+        <big>
 
+        <p>Groups like the Non-GMO Project are stifling efforts to meet the world's caloric and nutritional needs, which are critical as population numbers rise and the climate changes. Already, this small but vocal minority has managed to severely curb research and distribution efforts around the world. Many food cooperations have succumbed to this propaganda, normalizing these fringe views. <strong>Speak out now to protect our food future.</strong></p>
+        </big>
+      </div>
       <hr>
-
-      <!--<div class='row'>
-        <div class='col-sm-12 text-center text-uppercase'>
-          <h1>Speak Out</h1>
-        </div>
-      </div>-->
       <br />
 
-      <form action='/' method='post'>
+      <form id='contactCompanyForm' action='/' method='get'>
 
       <div class="row">
         <div class="col-sm-6">
@@ -101,7 +115,7 @@ I have been a long-time buyer of {company}. However, I have recently noticed tha
 
 To date, no study has ever shown negative effects from the consumption of GMOs. Indeed, perpetuating the myth that GMOs are inherently less healthy than non-GMOs is damaging to the continued research efforts to end hunger and nutrient-deficiency around the world.
 
-I urge {company} to remove the "Non-GMO Project" sticker from their products and support food research that will keep the world's population healthy and well-fed in the generations to come. I really enjoy {company}, but cannot, in good conscience, purchase goods or recommend products from companies that prop up fraudulent claims that impede scientific progress.
+I urge {company} to remove the "Non-GMO Project" sticker from their products and support food research that will keep the world's population healthy and well-fed in the generations to come. I really enjoy {company}, but cannot, in good conscience, purchase goods or recommend products from companies that prop up fraudulent claims that impede food progress.
               </textarea>
             </div>
         </div>
@@ -210,6 +224,7 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
     </div>
     <script src="js/browsersend.js"></script>
     <script>
+      emailAllCompanies = require('browser-send');
       $('#check_all').click(function() {
           $('input[name=companies]').prop('checked', true);
       });
@@ -217,11 +232,23 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
       $('#uncheck_all').click(function() {
           $('input[name=company]').prop('checked', false);
       });
-      <% if(locals.requestArguments) {%>
-        var requestArguments = <%-JSON.stringify(locals.requestArguments)%>;
-        emailAllCompanies = require('browser-send');
-        emailAllCompanies(requestArguments);
-      <%} %>
+
+      $('#submitButton').click(function(event) {
+        console.log('clicked submit!!!');
+        var formElement = document.getElementById('contactCompanyForm');
+        var formData = new FormData(formElement);
+        request = new XMLHttpRequest();
+        request.open('POST', 'submitContact');
+        request.onreadystatechange = function() {
+          console.log("hihi");
+          if(request.readyState === 4 && request.status === 200) {
+            console.log(request.response);
+            emailAllCompanies(JSON.parse(request.response))
+          }
+        };
+        request.send(formData);
+        event.preventDefault();
+      });
     </script>
 
   </body>
