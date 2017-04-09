@@ -1,5 +1,7 @@
-express = require 'express'
 _ = require 'lodash'
+bodyParser = require 'body-parser'
+express = require 'express'
+
 sender = require './sender/sender'
 #companyForms = require './sender/companyForms.json'
 
@@ -11,15 +13,58 @@ app.use express.static(__dirname + '/views')
 app.set 'views', (__dirname + '/views')
 app.set 'view engine', 'ejs'
 
+app.use bodyParser.json()
+app.use bodyParser.urlencoded {extended: true}
 
-companyNames = sender.companyNames
+{companyNames, companyKeys} = sender
 
-app.get '/', (req, res) ->
+
+mainPage = (req, res) ->
   locals = {
     companyNames
-    companyKeys: Object.keys(companyNames).sort()
+    companyKeys
     }
+
+  if req.method is 'POST'
+    {
+      fname
+      lname
+      email
+      address
+      city
+      state
+      zip
+      body
+      subject
+      companies
+      } = req.body
+    console.log "query: ", req.body
+
+    if companies?
+      companies = [companies] unless _.isArray companies
+
+      fullName = fname + ' ' + lname
+      messageInfo = 
+        {
+          fullName
+          fname
+          lname
+          email
+          address
+          city
+          state
+          zip
+          subject
+          body
+        }
+
+      requestArguments = sender.emailCompanyList companies, messageInfo
+      locals.requestArguments = requestArguments
+  console.log locals
   res.render 'index', {locals}
+
+app.get '/', mainPage
+app.post '/', mainPage
 
 app.get '/send', (req, res) ->
 

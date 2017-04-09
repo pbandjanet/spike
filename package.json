@@ -18,6 +18,8 @@
   "homepage": "https://github.com/pbandjanet/spike#readme",
   "dependencies": {
     "async": "^2.1.5",
+    "babelify": "^7.3.0",
+    "body-parser": "^1.17.1",
     "browser-request": "^0.3.3",
     "browserify": "^14.3.0",
     "coffee-script": "^1.12.4",
