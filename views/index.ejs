@@ -90,7 +90,7 @@
       <hr>
       <br />
 
-      <form id='contactCompanyForm' action='/' method='get' role="form" data-toggle="validator">
+      <form id='contactCompanyForm' action='/' method='get' role="form">
 
       <div class="row">
         <div class="col-sm-6">
@@ -239,21 +239,25 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
           $('input[name=company]').prop('checked', false);
       });
 
-      $('#submitButton').click(function(event) {
-        var formElement = document.getElementById('contactCompanyForm');
-        var formData = new FormData(formElement);
-        request = new XMLHttpRequest();
-        request.open('POST', 'submitContact');
-        request.onreadystatechange = function() {
-          if(request.readyState === 4 && request.status === 200) {
-            emailAllCompanies(JSON.parse(request.response));
-          }
-        };
-        request.send(formData);
-        submitButton = document.getElementById('submitButton');
-        submitButton.value='Submitted!';
-        submitButton.disabled=true;
-        event.preventDefault();
+      $('#contactCompanyForm').validator().on('submit', function(event) {
+        if(event.isDefaultPrevented()) {
+          //do nothing
+        } else {
+          var formElement = document.getElementById('contactCompanyForm');
+          var formData = new FormData(formElement);
+          request = new XMLHttpRequest();
+          request.open('POST', 'submitContact');
+          request.onreadystatechange = function() {
+            if(request.readyState === 4 && request.status === 200) {
+              emailAllCompanies(JSON.parse(request.response));
+            }
+          };
+          request.send(formData);
+          submitButton = document.getElementById('submitButton');
+          submitButton.value='Submitted!';
+          submitButton.disabled=true;
+          event.preventDefault();
+        }
       });
     </script>
 

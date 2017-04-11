@@ -62,10 +62,11 @@ app.post '/submitContact', (req, res) ->
       }
 
     requestArguments = sender.emailCompanyList companies, messageInfo
-    console.log "requestArgs: ",requestArguments
-    res.json(requestArguments)
   else
-    res.redirect '/'
+    requestArguments = []
+  console.log "requestArgs: ",requestArguments
+  res.json(requestArguments)
+
 
 app.get '/send', (req, res) ->
 
