@@ -32,23 +32,30 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">eatRational</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="images/eatrational.png" class="img-responsive" style="width:120px" alt="eatRational"></a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="">Facts</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="">Facts</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <div class="jumbotron" id="topimage" style='margin-top:50px; color:white'>
+    <div class="jumbotron" id="topimage" style='margin-top:-10px; color:white'>
       <div class="container text-center">
-        <h1>better food | better world</h1>
+        <h1>PROTECT OUR FOOD</h1>
         <p>improving the quality and quantity of our food</p>
       </div>
     </div>
@@ -77,10 +84,8 @@
       </div>
       <br />
       <div class="text-center">
-        <big>
-
-        <p>Groups like the Non-GMO Project are stifling efforts to meet the world's caloric and nutritional needs, which are critical as population numbers rise and the climate changes. Already, this small but vocal minority has managed to severely curb research and distribution efforts around the world. Many food cooperations have succumbed to this propaganda, normalizing these fringe views. <strong>Speak out now to protect our food future.</strong></p>
-        </big>
+        <big><p>Groups like the Non-GMO Project are stifling efforts to meet the world's caloric and nutritional needs. Already, this vocal minority has severely curbed research and distribution efforts around the world, and led many consumers astray. In a naked attempt to profit from ignorance, food cooperations are now capitalizing on these fraudulent views, and indirectly perpetuating harmful myths about genetic engineering.</p></big>
+        <h3>Speak out to protect our food future.</h3>
       </div>
       <hr>
       <br />
@@ -94,7 +99,7 @@
               <button type="button" class="btn btn-default" id='check_all'>Select all</button>
               <button type="button" class="btn btn-default" id='uncheck_all'>Deselect all</button>
             </div>
-            <div class="form-group" style="max-height:120px;overflow:auto"> 
+            <div class="form-group" style="max-height:160px;overflow:auto"> 
               <% for (var i=0; i<locals.companyKeys.length; i++) {%>
                 <div class="checkbox">
                   <label><input type="checkbox" name="companies" value=<%=locals.companyKeys[i]%> >
@@ -111,7 +116,7 @@
 
             <div class="form-group">
               <label for="email"><big>Editable text</big></label>
-              <textarea class="form-control" rows="14" name="body" id="body" maxlength="4000" required>
+              <textarea class="form-control" rows="15" name="body" id="body" maxlength="4000" required>
 I have been a long-time buyer of {company}. However, I have recently noticed that {company} supports the "Non-GMO Project". This is deeply disturbing to me, and I have discontinued purchase of {company's} products as a result.
 
 To date, no study has ever shown negative effects from the consumption of GMOs. Indeed, perpetuating the myth that GMOs are inherently less healthy than non-GMOs is damaging to the continued research efforts to end hunger and nutrient-deficiency around the world.
@@ -209,9 +214,9 @@ I urge {company} to remove the "Non-GMO Project" sticker from their products and
             <input type="text" class="form-control" name="zip" id="zip" required>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" style="margin-top:-20px">
             <div class="checkbox">
-              
+              <label><input type="checkbox" name="emailupdates" id="emailupdates"value="">Sign me to up to receive updates on new email campaigns and other ways to get involved (less than 1 email / month)!</label>
             </div>
           </div>
 
