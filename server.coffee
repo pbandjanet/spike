@@ -1,9 +1,14 @@
 _ = require 'lodash'
+async = require 'async'
 bodyParser = require 'body-parser'
 express = require 'express'
 multer = require 'multer'
 sender = require './sender/sender'
-#companyForms = require './sender/companyForms.json'
+pg = require 'pg'
+
+ASYNC_LIMIT = 10
+
+pool = new pg.Pool({database: process.env.DATABASE_URL || 'gmodb'})
 
 app = express()
 
@@ -26,6 +31,50 @@ app.get '/', (req, res) ->
     companyKeys
     }
   res.render 'index', {locals}
+
+
+insertData = (client, tableName, columns, row, callback) ->
+  values = (row[column] for column in columns)
+  console.log values
+  queryStr =
+    """
+    INSERT INTO #{tableName} (#{columns.join(',')})
+    VALUES ($#{[1..values.length].join(', $')})
+    """
+  console.log queryStr
+
+  client.query(queryStr, values, callback)
+
+insertSendData = (info, companies, callback) ->
+  pool.connect (err, client, done) ->
+    if err
+      console.log "Error Connecting to", err
+      return done err
+    columns =
+      [
+        'fname'
+        'lname'
+        'email'
+        'address'
+        'city'
+        'state'
+        'zip'
+        'body'
+        'subject'
+      ]
+
+    rowWithoutCompany = _.pick info, columns
+    columns.push('company')
+
+
+    processCompany = (company, cb) ->
+      row = _.clone(rowWithoutCompany)
+      row.company = company
+      insertData client, 'sent_table', columns, row, cb
+
+    async.eachLimit companies, ASYNC_LIMIT, processCompany, callback
+
+
 
 app.post '/submitContact', (req, res) ->
   console.log 'got submitcontact!'
@@ -61,12 +110,17 @@ app.post '/submitContact', (req, res) ->
         body
       }
 
+    insertSendData messageInfo, companies, (err, result) ->
+      if err?
+        console.log "Error in Insert! ", err
+      console.log "result: ",result
+
     requestArguments = sender.emailCompanyList companies, messageInfo
   else
     requestArguments = []
+
   console.log "requestArgs: ",requestArguments
   res.json(requestArguments)
-
 
 app.get '/send', (req, res) ->
 
@@ -99,6 +153,11 @@ app.get '/send', (req, res) ->
       subject
       body
     }
+
+  insertSendData messageInfo, companies, (err, result) ->
+    if err?
+      console.log "Error in Insert! ", err
+    console.log "result: ",result
 
   sender.emailCompanyList companies, messageInfo, (err) ->
     if err
