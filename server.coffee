@@ -6,7 +6,7 @@ multer = require 'multer'
 sender = require './sender/sender'
 pgquery = require 'pg-query'
 
-pgquery.connectionParameters = process.enc.DATABASE_URL
+pgquery.connectionParameters = process.env.DATABASE_URL
 
 ASYNC_LIMIT = 10
 
