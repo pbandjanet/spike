@@ -13,6 +13,9 @@ Run locally:
 1. run `make`
 2. go to <a href=http://localhost:5000>localhost:5000</a>
 
+Get a psql session on the heroku postgres server:
+1. `heroku pg:psql`
+
 Push to Heroku
 1. `git push heroku master`
 
