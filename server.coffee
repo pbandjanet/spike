@@ -24,6 +24,37 @@ app.use multer().none()
 
 {companyNames, companyKeys} = sender
 
+app.post '/contactUs', (req, res) ->
+  {
+    cu_name
+    cu_email
+    cu_subject
+    cu_message
+  } = req.body
+
+  pool.connect (err, client, done) ->
+    if err
+      console.log "Error Connecting to", err
+      return done err
+    columns =
+      [
+        'name'
+        'email'
+        'subject'
+        'message'
+      ]
+    row =
+      {
+        name: cu_name
+        email: cu_email
+        subject: cu_subject
+        message: cu_message
+      }
+    insertData client 'feedback_table', columns, row, (err, result) ->
+      if err?
+        console.log "error inserting feedback into table: ", err
+      console.log {result}
+  req.redirect '/'
 
 app.get '/', (req, res) ->
   locals = {
