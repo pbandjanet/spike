@@ -46,7 +46,7 @@ app.post '/contactUs', (req, res) ->
       subject: cu_subject
       message: cu_message
     }
-  insertData client 'feedback_table', columns, row, (err, result) ->
+  insertData 'feedback_table', columns, row, (err, result) ->
     if err?
       console.log "error inserting feedback into table: ", err
     console.log {result}
@@ -61,7 +61,7 @@ app.get '/', (req, res) ->
   res.render 'index', {locals}
 
 
-insertData = (client, tableName, columns, row, callback) ->
+insertData = (tableName, columns, row, callback) ->
   values = (row[column] for column in columns)
   console.log values
   queryStr =
@@ -94,7 +94,7 @@ insertSendData = (info, companies, callback) ->
   processCompany = (company, cb) ->
     row = _.clone(rowWithoutCompany)
     row.company = company
-    insertData client, 'sent_table', columns, row, cb
+    insertData 'sent_table', columns, row, cb
 
   async.eachLimit companies, ASYNC_LIMIT, processCompany, callback
 
@@ -116,7 +116,7 @@ app.post '/submitContact', (req, res) ->
     } = req.body
 
   if emailUpdates?
-    insertData client, 'signups', ['email'], {email}
+    insertData 'signups', ['email'], {email}
 
   if companies?
     companies = [companies] unless _.isArray companies
