@@ -8,7 +8,7 @@ pg = require 'pg'
 
 ASYNC_LIMIT = 10
 
-pool = new pg.Pool({database: process.env.DATABASE_URL || 'gmodb'})
+pool = new pg.Pool()
 
 app = express()
 
