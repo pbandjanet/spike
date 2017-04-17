@@ -6,7 +6,8 @@ multer = require 'multer'
 sender = require './sender/sender'
 pgquery = require 'pg-query'
 
-pgquery.connectionParameters = process.env.DATABASE_URL
+pgquery.connectionParameters =
+  process.env.DATABASE_URL || 'postgres::/localhost:5432/gmodb'
 
 ASYNC_LIMIT = 10
 
