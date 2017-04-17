@@ -105,8 +105,6 @@ insertSendData = (info, companies, callback) ->
 
     async.eachLimit companies, ASYNC_LIMIT, processCompany, callback
 
-
-
 app.post '/submitContact', (req, res) ->
   console.log 'got submitcontact!'
   console.log "sendContact query: ", req.body
@@ -121,7 +119,15 @@ app.post '/submitContact', (req, res) ->
     body
     subject
     companies
+    emailUpdates
     } = req.body
+
+  if emailUpdates?
+    pool.connect (err, client, done) ->
+      if err
+        console.log "Error Connecting to", err
+        return done err
+      insertData client, 'signups', ['email'], {email}
 
   if companies?
     companies = [companies] unless _.isArray companies
