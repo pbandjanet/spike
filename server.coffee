@@ -4,11 +4,11 @@ bodyParser = require 'body-parser'
 express = require 'express'
 multer = require 'multer'
 sender = require './sender/sender'
-pg = require 'pg'
+pgquery = require 'pg-query'
+
+pgquery.connectionParameters = process.enc.DATABASE_URL
 
 ASYNC_LIMIT = 10
-
-pool = new pg.Pool()
 
 app = express()
 
@@ -32,28 +32,25 @@ app.post '/contactUs', (req, res) ->
     cu_message
   } = req.body
 
-  pool.connect (err, client, done) ->
-    if err
-      console.log "Error Connecting to", err
-      return done err
-    columns =
-      [
-        'name'
-        'email'
-        'subject'
-        'message'
-      ]
-    row =
-      {
-        name: cu_name
-        email: cu_email
-        subject: cu_subject
-        message: cu_message
-      }
-    insertData client 'feedback_table', columns, row, (err, result) ->
-      if err?
-        console.log "error inserting feedback into table: ", err
-      console.log {result}
+  columns =
+    [
+      'name'
+      'email'
+      'subject'
+      'message'
+    ]
+  row =
+    {
+      name: cu_name
+      email: cu_email
+      subject: cu_subject
+      message: cu_message
+    }
+  insertData client 'feedback_table', columns, row, (err, result) ->
+    if err?
+      console.log "error inserting feedback into table: ", err
+    console.log {result}
+
   req.redirect '/'
 
 app.get '/', (req, res) ->
@@ -74,36 +71,32 @@ insertData = (client, tableName, columns, row, callback) ->
     """
   console.log queryStr
 
-  client.query(queryStr, values, callback)
+  pgquery(queryStr, values, callback)
 
 insertSendData = (info, companies, callback) ->
-  pool.connect (err, client, done) ->
-    if err
-      console.log "Error Connecting to", err
-      return done err
-    columns =
-      [
-        'fname'
-        'lname'
-        'email'
-        'address'
-        'city'
-        'state'
-        'zip'
-        'body'
-        'subject'
-      ]
+  columns =
+    [
+      'fname'
+      'lname'
+      'email'
+      'address'
+      'city'
+      'state'
+      'zip'
+      'body'
+      'subject'
+    ]
 
-    rowWithoutCompany = _.pick info, columns
-    columns.push('company')
+  rowWithoutCompany = _.pick info, columns
+  columns.push('company')
 
 
-    processCompany = (company, cb) ->
-      row = _.clone(rowWithoutCompany)
-      row.company = company
-      insertData client, 'sent_table', columns, row, cb
+  processCompany = (company, cb) ->
+    row = _.clone(rowWithoutCompany)
+    row.company = company
+    insertData client, 'sent_table', columns, row, cb
 
-    async.eachLimit companies, ASYNC_LIMIT, processCompany, callback
+  async.eachLimit companies, ASYNC_LIMIT, processCompany, callback
 
 app.post '/submitContact', (req, res) ->
   console.log 'got submitcontact!'
@@ -123,11 +116,7 @@ app.post '/submitContact', (req, res) ->
     } = req.body
 
   if emailUpdates?
-    pool.connect (err, client, done) ->
-      if err
-        console.log "Error Connecting to", err
-        return done err
-      insertData client, 'signups', ['email'], {email}
+    insertData client, 'signups', ['email'], {email}
 
   if companies?
     companies = [companies] unless _.isArray companies
