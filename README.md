@@ -5,9 +5,8 @@ Installation
 2. Install postgresql (e.g. from <a href=http://postgresapp.com/>postgres.app</a>)
 
 Fetch remote db info (this will have to change if we ever have a lot of data)
-1. `export DATABASE_URL=gmodb`
-2. `psql -c "DROP DATABASE gmodb;"` (drop `gmodb` so that it can be overwritten by `heroku pg:pull`)
-3. `heroku pg:pull postgresql-transparent-88316 gmodb`
+1. `psql -c "DROP DATABASE gmodb;"` (drop `gmodb` so that it can be overwritten by `heroku pg:pull`)
+2. `heroku pg:pull postgresql-transparent-88316 gmodb`
 
 Run locally:
 1. run `make`
