@@ -4,6 +4,7 @@ bodyParser = require 'body-parser'
 express = require 'express'
 multer = require 'multer'
 sender = require './sender/sender'
+emailer = require './emailer'
 pgquery = require 'pg-query'
 
 pgquery.connectionParameters =
@@ -50,6 +51,11 @@ app.post '/contactUs', (req, res) ->
   insertData 'feedback_table', columns, row, (err, result) ->
     if err?
       console.log "error inserting feedback into table: ", err
+    console.log {result}
+
+  emailer.sendFeedback row, (err, result) ->
+    if err?
+      console.log "error sending feedback email: ", err
     console.log {result}
 
   req.redirect '/'
@@ -147,51 +153,12 @@ app.post '/submitContact', (req, res) ->
     requestArguments = []
 
   console.log "requestArgs: ",requestArguments
-  res.json(requestArguments)
-
-app.get '/send', (req, res) ->
-
-  {
-    fname
-    lname
-    email
-    address
-    city
-    state
-    zip
-    body
-    subject
-    companies
-    } = req.query
-
-  companies = [companies] unless _.isArray companies
-
-  fullName = fname + ' ' + lname
-  messageInfo =
-    {
-      fullName
-      fname
-      lname
-      email
-      address
-      city
-      state
-      zip
-      subject
-      body
-    }
-
-  insertSendData messageInfo, companies, (err, result) ->
+  emailer.sendConfirmation req.body, (err, result) ->
     if err?
-      console.log "Error in Insert! ", err
-    console.log "result: ",result
+      console.log "error inserting confirmation email", err
+    console.log {result}
 
-  sender.emailCompanyList companies, messageInfo, (err) ->
-    if err
-      console.log "error: ", err
-
-  res.redirect '/'
-
+  res.json(requestArguments)
 
 #testing endpoint
 app.post '/test_contact', (req, res) ->

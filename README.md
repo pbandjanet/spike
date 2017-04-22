@@ -3,6 +3,7 @@
 Installation
 1. Install npm packages (if you haven't already) with `npm install`.
 2. Install postgresql (e.g. from <a href=http://postgresapp.com/>postgres.app</a>)
+3. Make sure you have copies of `mailgunkey.json` and `emailerdata.json` in the same director as `emailer.coffee`.
 
 Fetch remote db info (this will have to change if we ever have a lot of data)
 1. `psql -c "DROP DATABASE gmodb;"` (drop `gmodb` so that it can be overwritten by `heroku pg:pull`)
